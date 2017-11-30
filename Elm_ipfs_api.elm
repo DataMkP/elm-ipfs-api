@@ -69,11 +69,11 @@ files_add file args =
       ("/api/v0/add?")
       (\arg ->
         case arg of
-          Recursive_file_add -> "recurive=true"
-          Quiet_file_add -> "quiet=true"
+          Files_add_recursive -> "recurive=true"
+          File_add_quiet -> "quiet=true"
           Quieter -> "quieter=true"
           Silent -> "silent=true"
-          Add_progress -> "progress=true"
+          Files_add_progress -> "progress=true"
           Trickle -> "trickle=true"
           Only_hash -> "only-hash=true"
           Wrap_in_dir -> "wrap-with-directory=true"
@@ -138,7 +138,7 @@ repo_gc args =
       ("/api/v0/repo/gc?")
       (\arg ->
         case arg of
-          Quiet1 -> "quiet=true"
+          Repo_gc_quiet -> "quiet=true"
           Stream_errors -> "stream_errors=true"
       )
       args
@@ -157,8 +157,8 @@ pin_add maddr args =
     ("/api/v0/pin/add?=" ++ maddr)
     (\arg ->
       case arg of
-        Recursive1 -> "recursive=true"
-        Progress -> "progress=true"
+        Pin_add_recursive -> "recursive=true"
+        Pin_add_progress -> "progress=true"
     )
     args
     []
@@ -170,7 +170,7 @@ pin_rm maddr args =
     ("/api/v0/pin/rm?arg=" ++ maddr)
     (\arg ->
       case arg of
-        Recursive2 -> "recursive=true"
+        Pin_rm_recursive -> "recursive=true"
     )
     args
     []
@@ -186,9 +186,9 @@ pin_ls args =
           case pin_type of
             Direct -> "type=direct"
             Indirect -> "type=indirect"
-            Recursive -> "type=recursive"
+            Pin_type_recursive -> "type=recursive"
             All_pins -> "type=all"
-        Quiet -> "quiet=true"
+        Pin_ls_quiet -> "quiet=true"
     )
     args
     []
@@ -238,7 +238,7 @@ dht_findprovs key args =
     ("/api/v0/dht/findprovs?arg=" ++ key)
     (\arg ->
       case arg of
-        Verbose1 -> "verbose=true"
+        Dht_findprovs_verbose -> "verbose=true"
     )
     args
     []
@@ -250,7 +250,7 @@ dht_get key args =
     ("/api/v0/dht/findprovs?arg=" ++key)
     (\arg ->
       case arg of
-        Verbose2 -> "verbose=true"
+        Dht_get_verbose -> "verbose=true"
     )
     args
     []
@@ -339,11 +339,11 @@ log_level log_identifier level =
 
 
 type Files_add_args
-  = Recursive_file_add
-  | Quiet_file_add
+  = Files_add_recursive
+  | File_add_quiet
   | Quieter
   | Silent
-  | Add_progress
+  | Files_add_progress
   | Trickle
   | Only_hash
   | Wrap_in_dir
@@ -366,25 +366,25 @@ type Repo_stat_args
   = Human_readable
 
 type Repo_gc_args
-  = Quiet1
+  = Repo_gc_quiet
   | Stream_errors
 
 type Pin_add_args
-  = Recursive1
-  | Progress
+  = Pin_add_recursive
+  | Pin_add_progress
 
 type Pin_rm_args
-  = Recursive2
+  = Pin_rm_recursive
 
 type Pin_ls_args
   = Path String
   | Type Pin_type
-  | Quiet
+  | Pin_ls_quiet
 
 type Pin_type
   = Direct
   | Indirect
-  | Recursive
+  | Pin_type_recursive
   | All_pins
 
 type Bitswap_wantlist_args
@@ -394,10 +394,10 @@ type Bitswap_unwant_args
   = Peer_unwant String
 
 type Dht_findprovs_args
-  = Verbose1
+  = Dht_findprovs_verbose
 
 type Dht_get_args
-  = Verbose2
+  = Dht_get_verbose
 
 type Node_format
   = Cid
